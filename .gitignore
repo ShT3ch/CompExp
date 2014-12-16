@@ -1,0 +1,7 @@
+*/bin/*
+*/packages/*
+*/bin32
+*/bin64
+*.v12.suo
+*/obj/
+packages/
