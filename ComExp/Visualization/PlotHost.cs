@@ -9,9 +9,11 @@ namespace ComExp.Visualization
 	{
 		public static Form Main { get; private set; }
 
-		public void AccomodateControl(Control what, string where = "Main")
+		public void AccomodateControl(ShapesPlot what, string where = "Main")
 		{
-			GetForm(where).Controls.Add(what);
+			var form = GetForm(where);
+			form.Controls.Add(what);
+			what.Updated += () => Invoke(form.Refresh);
 		}
 
 		public void ShowForm(string name)
@@ -52,7 +54,7 @@ namespace ComExp.Visualization
 		private Form CreateForm(string name)
 		{
 			var RawForm = new Form { Text = name, Visible = true };
-			
+
 			Forms.AddOrUpdate(name, RawForm, (s, form) => RawForm);
 
 			return RawForm;

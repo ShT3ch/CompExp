@@ -37,6 +37,8 @@ namespace ComExp
 				foreach (var shape in pictureOfStep)
 				{
 					plotSpace.DrawShape(shape);
+					Console.WriteLine("Press Enter to make step");
+					Console.ReadLine();
 				}
 
 

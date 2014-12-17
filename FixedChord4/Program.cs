@@ -31,10 +31,14 @@ namespace FixedChord4
 			var func = new ShapeKeeper<Problem4>(new Problem4(), new UsualExpandingDomain(), "analized function");
 			var reporter = new SimpleReporter();
 
-			cycle.DoItRight(method, func, plot, new Conditions(), reporter);
-
-			Console.WriteLine(reporter.GenerateReport());
-
+			Task.Run(() =>
+						{
+							host.InitializedEvent.WaitOne();
+							cycle.DoItRight(method, func, plot, new Conditions(), reporter);
+							Console.WriteLine(reporter.GenerateReport());
+						}
+				);
+			host.InitializedEvent.Set();
 			Application.Run(PlotHost.Main);
 		}
 	}

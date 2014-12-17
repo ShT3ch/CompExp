@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ILNumerics;
@@ -48,6 +49,12 @@ namespace ComExp.Visualization
 			Scene.Add(Space = new ILPlotCube(twoDMode: true));
 		}
 
+		protected void IUpdated()
+		{
+			Updated.Invoke();
+		}
+
+		public event Action Updated = () => { };
 		public ILPlotCube Space { get; set; }
 	}
 }

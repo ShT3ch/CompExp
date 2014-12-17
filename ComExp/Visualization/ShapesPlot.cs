@@ -13,7 +13,8 @@ namespace ComExp.Visualization
 
 			line.CreateLine(shape.Generator.Compute, shape.ParametersDomain.GetRangeOfArguments());
 
-			Space.Configure();
+			this.Configure();
+			IUpdated();
 		}
 
 		private void CleanUpOldShapeAndRegistrateNew(IShape newShape, LineGroup newLine)

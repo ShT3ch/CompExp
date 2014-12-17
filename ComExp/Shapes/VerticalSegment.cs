@@ -14,7 +14,7 @@ namespace ComExp.Shapes
 
 			Generator = new SimpleFunctionKeeper(d =>
 			{
-				if (countOfCalls == 0)
+				if (countOfCalls++ == 0)
 					return Y1;
 				return Y2;
 			});
