@@ -15,7 +15,7 @@ namespace ComExp.Shapes
 			End = end;
 			Name = name;
 
-			LineEquation = x => (End.Y - Start.Y) * (x - start.X) / (End.X - End.Y) + Start.Y;
+			LineEquation = x => (End.Y - Start.Y) * (x - start.X) / (End.X - Start.X) + Start.Y;
 
 			Generator = new SimpleFunctionKeeper(LineEquation);
 		}

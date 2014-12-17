@@ -4,7 +4,7 @@ using ComExp.Shapes.Functions.FuncInterfaces;
 
 namespace ComExp.Methods
 {
-	interface INumericMethod<in TFunc>
+	public interface INumericMethod<in TFunc>
 		where TFunc:IFunction
 	{
 		double ComputeNext(IEnumerable<double> previuosPoints, TFunc analyzedFunction);

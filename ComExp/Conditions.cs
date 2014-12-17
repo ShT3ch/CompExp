@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace ComExp
 {
-	class Conditions
+	public class Conditions
 	{
 		public Conditions()
 		{
 			Epsilon = 0.5*Math.Pow(10, -5);
-			MaxNumberOfIteration = 100;
-			InitialPoints = new List<double> {1, 2, 3};
-			RootPoint = 1;
+			MaxNumberOfIteration = 13;
+			InitialPoints = new List<double> {0, 2};
+			RootPoint = 0.539785;
 		}
 
 		public double Epsilon { get; private set; }

@@ -2,7 +2,7 @@
 
 namespace ComExp.Shapes.Domains
 {
-	class UsualExpandingDomain : IDomain
+	public class UsualExpandingDomain : IDomain
 	{
 		public IEnumerable<double> GetRangeOfArguments()
 		{

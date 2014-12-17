@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ComExp.Shapes;
 
-namespace ComExp
+namespace ComExp.Reporters
 {
-	interface IReportGenerator
+	public interface IReportGenerator
 	{
 		String GenerateReport();
 		void AddIntermidiateStep(IEnumerable<double> actualPoints, IEnumerable<IShape> pictureOfShape);

@@ -31,7 +31,7 @@ namespace ComExp.Methods
 					X = start,
 					Y = analyzedFunction.Compute(start)
 				},
-				new Point2D() {X = lastPoints[0].Value, Y = analyzedFunction.Compute(lastPoints[1].Value)},
+				new Point2D() {X = lastPoints[0].Value, Y = analyzedFunction.Compute(lastPoints[0].Value)},
 				string.Format("Chord of {0} step", lastPoints[1].Number)
 				);
 

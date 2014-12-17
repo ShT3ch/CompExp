@@ -3,7 +3,7 @@ using ComExp.Shapes;
 
 namespace ComExp.Visualization
 {
-	class ShapesPlot : BasePlot, IPlot
+	public class ShapesPlot : BasePlot, IPlot
 	{
 		public void DrawShape(IShape shape)
 		{

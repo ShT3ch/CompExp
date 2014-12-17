@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using ComExp.Methods;
+using ComExp.Reporters;
 using ComExp.Shapes;
 using ComExp.Shapes.Functions.FuncInterfaces;
 using ComExp.Visualization;
 
 namespace ComExp
 {
-	class Iterator<TMethod, TFunc>
+	public class Iterator<TMethod, TFunc>
 		where TMethod : INumericMethod<TFunc>
 		where TFunc : IFunction
 	{
@@ -19,13 +20,15 @@ namespace ComExp
 			UpdateDomain(func, actualPoints);
 			reporter.Init(actualPoints, func, conditions);
 
-			while (!IsAnyPointPrettyCloseToRoot(func.Generator, conditions, actualPoints))
+			var iterationsCounter = 0;
+
+			while (!IsAnyPointPrettyCloseToRoot(func.Generator, conditions, actualPoints) && iterationsCounter++ < conditions.MaxNumberOfIteration)
 			{
 				var newPoint = method.ComputeNext(actualPoints, func.Generator);
-				
-				actualPoints.Concat(Enumerable.Repeat(newPoint, 1));
+
+				actualPoints = actualPoints.Concat(Enumerable.Repeat(newPoint, 1)).ToArray();
 				UpdateDomain(func, actualPoints);
-				
+
 				var pictureOfStep = method.GenerateIllustrationForCurrentStep(actualPoints, func.Generator);
 
 				reporter.AddIntermidiateStep(actualPoints, pictureOfStep);
@@ -33,9 +36,10 @@ namespace ComExp
 				plotSpace.DrawShape(func);
 				foreach (var shape in pictureOfStep)
 				{
-					plotSpace.DrawShape(shape);		
+					plotSpace.DrawShape(shape);
 				}
-			
+
+
 			}
 
 			return reporter.GenerateReport();

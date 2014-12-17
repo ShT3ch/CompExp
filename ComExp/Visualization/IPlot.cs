@@ -2,7 +2,7 @@
 
 namespace ComExp.Visualization
 {
-	interface IPlot
+	public interface IPlot
 	{
 		void DrawShape(IShape shape);
 	}
