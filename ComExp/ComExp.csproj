@@ -50,6 +50,8 @@
     <Compile Include="Methods\INumericMethod.cs" />
     <Compile Include="Methods\MethodOfFixedChords.cs" />
     <Compile Include="Methods\MethodsHelper.cs" />
+    <Compile Include="Methods\NewTonMethod.cs" />
+    <Compile Include="Methods\SecantMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporters\IReportGenerator.cs" />
     <Compile Include="Reporters\SimpleReporter.cs" />

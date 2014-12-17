@@ -6,6 +6,7 @@ using ComExp.Reporters;
 using ComExp.Shapes;
 using ComExp.Shapes.Functions.FuncInterfaces;
 using ComExp.Visualization;
+using ILNumerics.Drawing;
 
 namespace ComExp
 {
@@ -29,7 +30,7 @@ namespace ComExp
 				actualPoints = actualPoints.Concat(Enumerable.Repeat(newPoint, 1)).ToArray();
 				UpdateDomain(func, actualPoints);
 
-				var pictureOfStep = method.GenerateIllustrationForCurrentStep(actualPoints, func.Generator);
+				var pictureOfStep = method.GenerateIllustrationForCurrentStep(actualPoints, func.Generator, iterationsCounter + conditions.InitialPoints.Count());
 
 				reporter.AddIntermidiateStep(actualPoints, pictureOfStep);
 
@@ -57,12 +58,19 @@ namespace ComExp
 
 		private bool IsAnyPointPrettyCloseToRoot(TFunc func, Conditions conditions, IEnumerable<double> actualPoints)
 		{
-			return actualPoints.Any(point => IsPrettyClose(DistanceToRoot(func, point, conditions), conditions));
+			var lastPoints = actualPoints.GetLastN(2);
+
+			return IsPrettyClose(DistanceBetweenPoints(func, lastPoints[0], lastPoints[1]), conditions);
+		}
+
+		double DistanceBetweenPoints(TFunc func, double point1, double point2)
+		{
+			return Math.Abs(func.Compute(point1) - func.Compute(point2));
 		}
 
 		double DistanceToRoot(TFunc func, double point, Conditions conditions)
 		{
-			return Math.Abs(func.Compute(point) - func.Compute(conditions.RootPoint));
+			return DistanceBetweenPoints(func, point, conditions.RootPoint);
 		}
 
 		bool IsPrettyClose(double distance, Conditions conditions)

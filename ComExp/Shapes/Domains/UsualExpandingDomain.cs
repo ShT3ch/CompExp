@@ -27,7 +27,9 @@ namespace ComExp.Shapes.Domains
 
 		private const double Delta = 0.1;
 
-		private double Start;
-		private double Finish;
+		private bool Initialized;
+
+		private double Start = double.PositiveInfinity;
+		private double Finish = double.NegativeInfinity;
 	}
 }
