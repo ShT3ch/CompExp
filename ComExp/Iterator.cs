@@ -6,7 +6,6 @@ using ComExp.Reporters;
 using ComExp.Shapes;
 using ComExp.Shapes.Functions.FuncInterfaces;
 using ComExp.Visualization;
-using ILNumerics.Drawing;
 
 namespace ComExp
 {

@@ -25,9 +25,9 @@ namespace FixedChord4
 			var plot = new ShapesPlot();
 			host.AccomodateControl(plot);
 
-			var cycle = new Iterator<SecantMethod, Problem4>();
+			var cycle = new Iterator<NewtonMethod, Problem4>();
 
-			var method = new SecantMethod();
+			var method = new NewtonMethod();
 			var func = new ShapeKeeper<Problem4>(new Problem4(), new UsualExpandingDomain(), "analized function");
 			var reporter = new SimpleReporter();
 
