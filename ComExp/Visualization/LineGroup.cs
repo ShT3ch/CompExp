@@ -15,7 +15,7 @@ namespace ComExp.Visualization
 
 		public LineGroup(string nameOfLine = "nameless")
 		{
-			Graph = new ILLinePlot(ILMath.empty<float>(), nameOfLine);
+			Graph = new ILLinePlot(ILMath.empty<float>(), nameOfLine, lineWidth: 2);
 		}
 
 		public LineGroup CreateLine(Func<double, double> func, IEnumerable<double> range)

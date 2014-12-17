@@ -23,9 +23,10 @@ namespace ComExp.Methods
 				MethodsHelper.ThrowGreedlyException(actualPoints, 3);
 
 			var start = actualPoints.First();
-			var lastPoints = actualPoints.Numerate().GetLastN(2);
+			var temp1 = actualPoints.Numerate().ToList();
+			var lastPoints = temp1.GetLastN(2);
 
-			yield return new LineShape(new SegmentDomain(start, lastPoints[0].Value),
+			yield return new LineShape(new UsualExpandingDomain().Update(start).Update(lastPoints[0].Value).Update(lastPoints[1].Value),
 				new Point2D
 				{
 					X = start,

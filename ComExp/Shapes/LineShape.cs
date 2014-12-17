@@ -7,7 +7,7 @@ namespace ComExp.Shapes
 {
 	public class LineShape : IShape
 	{
-		public LineShape(SegmentDomain segment, Point2D start, Point2D end, string name)
+		public LineShape(IDomain segment, Point2D start, Point2D end, string name)
 		{
 			ParametersDomain = segment;
 

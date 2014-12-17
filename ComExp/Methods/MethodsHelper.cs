@@ -10,6 +10,14 @@ namespace ComExp.Methods
 		public int Number;
 	}
 
+	public class Counter
+	{
+		public int GetNumber {
+			get { return counter++; }
+		}
+		private int counter;
+	}
+
 	public static class MethodsHelper
 	{
 		public static bool IsEnoughOfParams(this IEnumerable<double> parameters, int nessesary)
@@ -33,8 +41,8 @@ namespace ComExp.Methods
 
 		public static IEnumerable<NumeredValue> Numerate(this IEnumerable<double> parameters)
 		{
-			var counter = 0;
-			return parameters.Select(elem => new NumeredValue { Value = elem, Number = counter++ });
+			var counter = new Counter();
+			return parameters.Select(elem => new NumeredValue { Value = elem, Number = counter.GetNumber });
 		}
 
 		public static void ThrowGreedlyException(IEnumerable<double> parameters, int N)
