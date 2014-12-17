@@ -13,11 +13,12 @@ namespace ComExp
 		where TFunc : IFunction
 	{
 		private const string Cool = "";
-		public String DoItRight(TMethod method, IShape<TFunc> func, IPlot plotSpace, Conditions conditions)
+		public String DoItRight(TMethod method, IShape<TFunc> func, IPlot plotSpace, Conditions conditions, IReportGenerator reporter)
 		{
 			var actualPoints = conditions.InitialPoints.ToArray();
 
 			UpdateDomain(func, actualPoints);
+			reporter.Init(actualPoints, func, conditions);
 
 			while (!IsAnyPointPrettyCloseToRoot(func.Generator, conditions, actualPoints))
 			{
@@ -26,10 +27,13 @@ namespace ComExp
 				UpdateDomain(func, actualPoints);
 				var pictureOfStep = method.GenerateIllustrationForCurrentStep(actualPoints, func.Generator);
 
+				reporter.AddIntermidiateStep(actualPoints, pictureOfStep);
+
 				plotSpace.DrawShape(func);
 				plotSpace.DrawShape(pictureOfStep);
 			}
-			return GenerateReport(func.Generator, conditions, actualPoints);
+
+			return reporter.GenerateReport();
 		}
 
 		private static void UpdateDomain(IShape<TFunc> func, IEnumerable<double> actualPoints)
@@ -40,12 +44,7 @@ namespace ComExp
 			}
 		}
 
-		private string GenerateReport(TFunc func, Conditions conditions, double[] actualPoints)
-		{
-			return string.Format(Cool, actualPoints.First(point => IsPrettyClose(DistanceToRoot(func, point, conditions), conditions)));
-		}
-
-		private bool IsAnyPointPrettyCloseToRoot(TFunc func, Conditions conditions, double[] actualPoints)
+		private bool IsAnyPointPrettyCloseToRoot(TFunc func, Conditions conditions, IEnumerable<double> actualPoints)
 		{
 			return actualPoints.Any(point => IsPrettyClose(DistanceToRoot(func, point, conditions), conditions));
 		}
