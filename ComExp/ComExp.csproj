@@ -35,7 +35,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,17 +46,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conditions.cs" />
-    <Compile Include="FuncInterfaces\IDifferentiableOnce.cs" />
-    <Compile Include="FuncInterfaces\IDifferentiableTwice.cs" />
-    <Compile Include="FuncInterfaces\IFunction.cs" />
-    <Compile Include="IDomain.cs" />
     <Compile Include="INumericMethod.cs" />
-    <Compile Include="IPlot.cs" />
-    <Compile Include="IShape.cs" />
+    <Compile Include="IReportGenerator.cs" />
     <Compile Include="Iterator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shapes\Domains\IDomain.cs" />
+    <Compile Include="Shapes\Functions\FuncInterfaces\IDifferentiableOnce.cs" />
+    <Compile Include="Shapes\Functions\FuncInterfaces\IDifferentiableTwice.cs" />
+    <Compile Include="Shapes\Functions\FuncInterfaces\IFunction.cs" />
+    <Compile Include="Shapes\IShape.cs" />
+    <Compile Include="Visualization\BasePlot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Visualization\IPlot.cs" />
+    <Compile Include="Visualization\LineGroup.cs" />
+    <Compile Include="Visualization\PlotHost.cs" />
+    <Compile Include="Visualization\PointsGroup.cs" />
+    <Compile Include="Visualization\ShapesPlot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Visualization\BasePlot.resx">
+      <DependentUpon>BasePlot.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="bin32\libiomp5md.dll">

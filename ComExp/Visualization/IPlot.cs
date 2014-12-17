@@ -1,4 +1,6 @@
-﻿namespace ComExp
+﻿using ComExp.Shapes;
+
+namespace ComExp.Visualization
 {
 	interface IPlot
 	{

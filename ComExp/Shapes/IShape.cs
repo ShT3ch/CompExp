@@ -1,6 +1,7 @@
-﻿using ComExp.FuncInterfaces;
+﻿using ComExp.Shapes.Domains;
+using ComExp.Shapes.Functions.FuncInterfaces;
 
-namespace ComExp
+namespace ComExp.Shapes
 {
 	interface IShape<out TFunc>:IShape
 		where TFunc:IFunction

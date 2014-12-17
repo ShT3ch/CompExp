@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ComExp
+namespace ComExp.Shapes.Domains
 {
 	interface IDomain
 	{

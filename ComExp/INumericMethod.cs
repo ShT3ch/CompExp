@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using ComExp.FuncInterfaces;
+using ComExp.Shapes;
+using ComExp.Shapes.Functions.FuncInterfaces;
 
 namespace ComExp
 {

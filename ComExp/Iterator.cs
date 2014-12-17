@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ComExp.FuncInterfaces;
+using ComExp.Shapes;
+using ComExp.Shapes.Functions.FuncInterfaces;
+using ComExp.Visualization;
 
 namespace ComExp
 {
@@ -12,7 +11,6 @@ namespace ComExp
 		where TMethod : INumericMethod<TFunc>
 		where TFunc : IFunction
 	{
-		private const string Cool = "";
 		public String DoItRight(TMethod method, IShape<TFunc> func, IPlot plotSpace, Conditions conditions, IReportGenerator reporter)
 		{
 			var actualPoints = conditions.InitialPoints.ToArray();
@@ -23,8 +21,10 @@ namespace ComExp
 			while (!IsAnyPointPrettyCloseToRoot(func.Generator, conditions, actualPoints))
 			{
 				var newPoint = method.ComputeNext(actualPoints, func.Generator);
+				
 				actualPoints.Concat(Enumerable.Repeat(newPoint, 1));
 				UpdateDomain(func, actualPoints);
+				
 				var pictureOfStep = method.GenerateIllustrationForCurrentStep(actualPoints, func.Generator);
 
 				reporter.AddIntermidiateStep(actualPoints, pictureOfStep);

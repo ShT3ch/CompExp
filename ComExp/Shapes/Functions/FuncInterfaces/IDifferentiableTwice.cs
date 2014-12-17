@@ -1,4 +1,4 @@
-namespace ComExp.FuncInterfaces
+namespace ComExp.Shapes.Functions.FuncInterfaces
 {
 	interface IDifferentiableTwice : IDifferentiableOnce
 	{
