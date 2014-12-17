@@ -47,16 +47,20 @@
   <ItemGroup>
     <Compile Include="Conditions.cs" />
     <Compile Include="Iterator.cs" />
+    <Compile Include="Methods\BisecantMethod.cs" />
     <Compile Include="Methods\INumericMethod.cs" />
     <Compile Include="Methods\MethodOfFixedChords.cs" />
     <Compile Include="Methods\MethodsHelper.cs" />
+    <Compile Include="Methods\MullersMethod.cs" />
     <Compile Include="Methods\NewtonMethod.cs" />
+    <Compile Include="Methods\ParabolaMethod.cs" />
     <Compile Include="Methods\SecantMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporters\IReportGenerator.cs" />
     <Compile Include="Reporters\SimpleReporter.cs" />
     <Compile Include="Shapes\Domains\SegmentDomain.cs" />
     <Compile Include="Shapes\Domains\SimpleDomainKeeper.cs" />
+    <Compile Include="Shapes\Functions\Problem3.cs" />
     <Compile Include="Shapes\LineShape.cs" />
     <Compile Include="Shapes\Domains\IDomain.cs" />
     <Compile Include="Shapes\Domains\UsualExpandingDomain.cs" />

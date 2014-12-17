@@ -9,12 +9,12 @@ namespace ComExp.Methods
 {
 	public class MethodOfFixedChords : INumericMethod<IFunction>
 	{
-		public double ComputeNext(IEnumerable<double> previuosPoints, IFunction analyzedFunction)
+		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IFunction analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(2))
 				MethodsHelper.ThrowGreedlyException(previuosPoints, 2);
 
-			return MethodStep(previuosPoints.First(), previuosPoints.Last(), analyzedFunction.Compute);
+			yield return MethodStep(previuosPoints.First(), previuosPoints.Last(), analyzedFunction.Compute);
 		}
 
 		public IEnumerable<IShape> GenerateIllustrationForCurrentStep(IEnumerable<double> actualPoints, IFunction analyzedFunction, int iterationNumber)

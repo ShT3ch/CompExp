@@ -9,14 +9,22 @@ namespace ComExp.Methods
 {
 	public class NewtonMethod : INumericMethod<IDifferentiableOnce>
 	{
-		public double ComputeNext(IEnumerable<double> previuosPoints, IDifferentiableOnce analyzedFunction)
+		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IDifferentiableOnce analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(1))
 				MethodsHelper.ThrowGreedlyException(previuosPoints, 1);
 
 			var prevPoint = previuosPoints.Last();
 
-			return prevPoint - analyzedFunction.Compute(prevPoint) / analyzedFunction.FirstDerivative.Compute(prevPoint);
+			if(prevPoint<0)
+				throw new Exception("Метод Ньютона - тыква. Касательная ушла не туда. Надо попробовать начать метод с другой стороны от корня.");
+
+			var inPoint = analyzedFunction.Compute(prevPoint);
+			var inPointDerivative = analyzedFunction.FirstDerivative.Compute(prevPoint);
+
+			
+
+			yield return prevPoint - inPoint / inPointDerivative;
 		}
 
 		public IEnumerable<IShape> GenerateIllustrationForCurrentStep(IEnumerable<double> actualPoints, IDifferentiableOnce analyzedFunction, int iterationNumber)

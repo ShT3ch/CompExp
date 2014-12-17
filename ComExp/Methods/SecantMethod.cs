@@ -11,14 +11,14 @@ namespace ComExp.Methods
 {
 	public class SecantMethod: INumericMethod<IFunction>
 	{
-		public double ComputeNext(IEnumerable<double> previuosPoints, IFunction analyzedFunction)
+		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IFunction analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(2))
 				MethodsHelper.ThrowGreedlyException(previuosPoints, 2);
 
 			var lastPoints = previuosPoints.GetLastN(2);
 
-			return MethodStep(lastPoints[0], lastPoints[1], analyzedFunction.Compute);
+			yield return MethodStep(lastPoints[0], lastPoints[1], analyzedFunction.Compute);
 		}
 
 		public IEnumerable<IShape> GenerateIllustrationForCurrentStep(IEnumerable<double> actualPoints, IFunction analyzedFunction, int iterationNumber)

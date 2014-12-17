@@ -1,6 +1,6 @@
 namespace ComExp.Shapes.Functions.FuncInterfaces
 {
-	interface IDifferentiableTwice : IDifferentiableOnce
+	public interface IDifferentiableTwice : IDifferentiableOnce
 	{
 		IFunction SecondDerivative { get; }
 	}

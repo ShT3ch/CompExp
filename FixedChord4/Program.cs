@@ -25,16 +25,18 @@ namespace FixedChord4
 			var plot = new ShapesPlot();
 			host.AccomodateControl(plot);
 
-			var cycle = new Iterator<NewtonMethod, Problem4>();
+			var func = new Problem3();
+			var shape = new ShapeKeeper<Problem3>(func, new UsualExpandingDomain(), "analized function");
+			var conditions = new Conditions3();
+			var cycle = new Iterator<NewtonMethod, Problem3>(shape, conditions);
+			var method = new NewtonMethod();//(conditions.InitialPoints.Min(), conditions.InitialPoints.Max(), func, -1);
 
-			var method = new NewtonMethod();
-			var func = new ShapeKeeper<Problem4>(new Problem4(), new UsualExpandingDomain(), "analized function");
 			var reporter = new SimpleReporter();
 
 			Task.Run(() =>
 						{
 							host.InitializedEvent.WaitOne();
-							cycle.DoItRight(method, func, plot, new Conditions(), reporter);
+							cycle.DoItRight(method, shape, plot, conditions, reporter);
 							Console.WriteLine(reporter.GenerateReport());
 						}
 				);
