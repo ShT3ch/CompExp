@@ -2,12 +2,12 @@
 using ComExp.Shapes;
 using ComExp.Shapes.Functions.FuncInterfaces;
 
-namespace ComExp
+namespace ComExp.Methods
 {
 	interface INumericMethod<in TFunc>
 		where TFunc:IFunction
 	{
 		double ComputeNext(IEnumerable<double> previuosPoints, TFunc analyzedFunction);
-		IShape GenerateIllustrationForCurrentStep(IEnumerable<double> actualPoints, TFunc analyzedFunction);
+		IEnumerable<IShape> GenerateIllustrationForCurrentStep(IEnumerable<double> actualPoints, TFunc analyzedFunction);
 	}
 }

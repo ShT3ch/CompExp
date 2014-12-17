@@ -3,13 +3,13 @@ using ComExp.Shapes.Functions.FuncInterfaces;
 
 namespace ComExp.Shapes
 {
-	interface IShape<out TFunc>:IShape
+	public interface IShape<out TFunc>:IShape
 		where TFunc:IFunction
 	{
 		new TFunc Generator { get; }
 	}
 
-	interface IShape
+	public interface IShape
 	{
 		IFunction Generator { get; }
 		IDomain ParametersDomain { get; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ComExp.Methods;
 using ComExp.Shapes;
 using ComExp.Shapes.Functions.FuncInterfaces;
 using ComExp.Visualization;
@@ -30,7 +31,11 @@ namespace ComExp
 				reporter.AddIntermidiateStep(actualPoints, pictureOfStep);
 
 				plotSpace.DrawShape(func);
-				plotSpace.DrawShape(pictureOfStep);
+				foreach (var shape in pictureOfStep)
+				{
+					plotSpace.DrawShape(shape);		
+				}
+			
 			}
 
 			return reporter.GenerateReport();

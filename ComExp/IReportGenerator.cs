@@ -10,7 +10,7 @@ namespace ComExp
 	interface IReportGenerator
 	{
 		String GenerateReport();
-		void AddIntermidiateStep(IEnumerable<double> actualPoints, IShape pictureOfShape);
+		void AddIntermidiateStep(IEnumerable<double> actualPoints, IEnumerable<IShape> pictureOfShape);
 		void Init(IEnumerable<double> startPoints, IShape function, Conditions conditions);
 	}
 }
