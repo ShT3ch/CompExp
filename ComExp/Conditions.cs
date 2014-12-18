@@ -9,16 +9,16 @@ namespace ComExp
 		double Epsilon { get; }
 		int MaxNumberOfIteration { get; }
 		IEnumerable<double> InitialPoints { get; }
-		double RootPoint { get;}
+		double RootPoint { get; }
 	}
 
-	public class Conditions4:Conditions
+	public class Conditions4 : Conditions
 	{
 		public Conditions4()
 		{
 			Epsilon = 0.5 * Math.Pow(10, -5);
-			MaxNumberOfIteration = 13;
-			InitialPoints = new List<double> { 0, 3, };
+			MaxNumberOfIteration = 120;
+			InitialPoints = new List<double> { 1, 0, 3, };
 			RootPoint = 0.539785;
 		}
 
@@ -30,13 +30,13 @@ namespace ComExp
 
 	}
 
-	public class Conditions3:Conditions
+	public class Conditions3 : Conditions
 	{
 		public Conditions3()
 		{
 			Epsilon = 0.5 * Math.Pow(10, -5);
 			MaxNumberOfIteration = 13;
-			InitialPoints = new List<double> { 1,1.5,2};
+			InitialPoints = new List<double> { 2, 1.5, 1 };
 			RootPoint = 1.37471;
 		}
 

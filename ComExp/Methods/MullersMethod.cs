@@ -18,6 +18,18 @@ namespace ComExp.Methods
 			MaximumOfDoubleDiff = domain.GetRangeOfArguments().Select(x => analyzedFunction.SecondDerivative.Compute(x)).Max();
 		}
 
+		public string Name
+		{
+			get { return "MullersMethod"; }
+		}
+		public string SrcImg
+		{
+			get { return Name + ".SVG"; }
+		}
+
+		public int StepSize { get; private set; }
+
+
 		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IDifferentiableTwice analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(3))
@@ -59,7 +71,7 @@ namespace ComExp.Methods
 				string.Format("Porabola on {0}x*x+{1}*x+{2} N{3}", A1, B1, C1, iterationNumber)
 				);
 
-			yield return new VerticalSegment(0, analyzedFunction.Compute(lastPoints[3]), lastPoints[4], string.Format("Step N{0}", iterationNumber));
+			yield return new VerticalSegment(0, analyzedFunction.Compute(lastPoints[3]), lastPoints[3], string.Format("Mullers step N{0}", iterationNumber));
 		}
 
 		protected Func<double, double, double, Func<double, double>, double> MethodStep

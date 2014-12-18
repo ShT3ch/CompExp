@@ -11,6 +11,17 @@ namespace ComExp.Methods
 {
 	public class SecantMethod: INumericMethod<IFunction>
 	{
+		public string Name
+		{
+			get { return "SecantMethod"; }
+		}
+		public string SrcImg
+		{
+			get { return Name + ".SVG"; }
+		}
+
+		public int StepSize { get; set; }
+
 		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IFunction analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(2))
@@ -41,7 +52,7 @@ namespace ComExp.Methods
 
 			yield return new VerticalSegment(0,
 				analyzedFunction.Compute(lastPoints[2]),
-				lastPoints[2], string.Format("Step of {0}", iterationNumber));
+				lastPoints[2], string.Format("Secant step N{0}", iterationNumber));
 		}
 
 		protected Func<double, double, Func<double, double>, double> MethodStep

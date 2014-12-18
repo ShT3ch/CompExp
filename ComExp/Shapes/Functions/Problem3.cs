@@ -15,6 +15,11 @@ namespace ComExp.Shapes.Functions
 			return MyFunc(x);
 		}
 
+		public string Name
+		{
+			get { return "Problem 3 log(x)..."; }
+		}
+
 		private Func<double, double> MyFunc = (x) => Math.Log10(x) - 0.19 / x;
 		private Func<double, double> MyFunc1 = x => (x + 0.437491) / (x * x * Math.Log(10));
 		private Func<double, double> MyFunc2 = x => (-0.434294 * x - 0.38) / (x * x * x);

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using ComExp.Shapes;
+using ILNumerics.Drawing;
 using ILNumerics.Drawing.Plotting;
 
 namespace ComExp.Visualization
@@ -11,6 +14,7 @@ namespace ComExp.Visualization
 			Space.Children.Add(Legend = new ILLegend());
 		}
 
+
 		public void DrawShape(IShape shape)
 		{
 			var line = new LineGroup(shape.Name);
@@ -20,8 +24,15 @@ namespace ComExp.Visualization
 			line.CreateLine(shape.Generator.Compute, shape.ParametersDomain.GetRangeOfArguments());
 
 			ReLegend();
-
-			this.Configure();
+			try
+			{
+				this.Configure();
+			}
+			catch (Exception)
+			{
+				
+			}
+			
 			IUpdated();
 		}
 

@@ -9,6 +9,17 @@ namespace ComExp.Methods
 {
 	public class NewtonMethod : INumericMethod<IDifferentiableOnce>
 	{
+		public string Name
+		{
+			get { return "NewtonMethod"; }
+		}
+
+		public string SrcImg {
+			get { return Name + ".SVG"; }
+		}
+
+		public int StepSize { get; set; }
+
 		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IDifferentiableOnce analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(1))
@@ -16,13 +27,13 @@ namespace ComExp.Methods
 
 			var prevPoint = previuosPoints.Last();
 
-			if(prevPoint<0)
+			if (prevPoint < 0)
 				throw new Exception("Метод Ньютона - тыква. Касательная ушла не туда. Надо попробовать начать метод с другой стороны от корня.");
 
 			var inPoint = analyzedFunction.Compute(prevPoint);
 			var inPointDerivative = analyzedFunction.FirstDerivative.Compute(prevPoint);
 
-			
+
 
 			yield return prevPoint - inPoint / inPointDerivative;
 		}
@@ -42,7 +53,7 @@ namespace ComExp.Methods
 			yield return new VerticalSegment(0,
 											 analyzedFunction.Compute(lastPoints[1]),
 											 lastPoints[1],
-											 string.Format("Step N{0}", iterationNumber));
+											 string.Format("Newton step N{0}", iterationNumber));
 		}
 	}
 }

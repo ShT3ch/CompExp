@@ -7,12 +7,12 @@ namespace ComExp.Reporters
 {
 	public class SimpleReporter : IReportGenerator
 	{
-		public string GenerateReport()
+		public string GenerateReport(double Root, int N, double Error)
 		{
 			return report;
 		}
 
-		public void AddIntermidiateStep(IEnumerable<double> actualPoints, IEnumerable<IShape> pictureOfShape)
+		public void AddIntermidiateStep(IEnumerable<double> actualPoints, IEnumerable<IShape> pictureOfShape, int iterationNumber)
 		{
 			var numerated = actualPoints.Numerate();
 

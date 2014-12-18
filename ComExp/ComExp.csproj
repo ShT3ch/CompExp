@@ -56,6 +56,7 @@
     <Compile Include="Methods\ParabolaMethod.cs" />
     <Compile Include="Methods\SecantMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporters\HtmlColumnReporter.cs" />
     <Compile Include="Reporters\IReportGenerator.cs" />
     <Compile Include="Reporters\SimpleReporter.cs" />
     <Compile Include="Shapes\Domains\SegmentDomain.cs" />

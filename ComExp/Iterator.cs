@@ -10,8 +10,7 @@ using ComExp.Visualization;
 
 namespace ComExp
 {
-	public class Iterator<TMethod, TFunc>
-		where TMethod : INumericMethod<TFunc>
+	public class Iterator<TFunc>
 		where TFunc : IDifferentiableOnce
 	{
 		public Iterator(IShape<TFunc> func, Conditions conditions)
@@ -25,7 +24,7 @@ namespace ComExp
 			MinimumOfOnceDiff = domain.GetRangeOfArguments().Select(x => func.Generator.FirstDerivative.Compute(x)).Min();
 		}
 
-		public String DoItRight(TMethod method, IShape<TFunc> func, IPlot plotSpace, Conditions conditions, IReportGenerator reporter)
+		public String DoItRight(INumericMethod<TFunc> method, IShape<TFunc> func, IPlot plotSpace, Conditions conditions, IReportGenerator reporter, bool stepByStep = false)
 		{
 			var actualPoints = conditions.InitialPoints.ToArray();
 
@@ -46,18 +45,21 @@ namespace ComExp
 
 				var pictureOfStep = method.GenerateIllustrationForCurrentStep(actualPoints, func.Generator, iterationsCounter + conditions.InitialPoints.Count());
 
-				reporter.AddIntermidiateStep(actualPoints, pictureOfStep);
+				reporter.AddIntermidiateStep(actualPoints, pictureOfStep, iterationsCounter);
 
 				plotSpace.DrawShape(func);
 				foreach (var shape in pictureOfStep)
 				{
 					plotSpace.DrawShape(shape);
-					Console.WriteLine("Press Enter to make step");
-					Console.ReadLine();
+					if (stepByStep)
+					{
+						Console.WriteLine("Press Enter to make step");
+						Console.ReadLine();
+					}
 				}
 			}
 
-			return reporter.GenerateReport();
+			return reporter.GenerateReport(actualPoints.Last(), iterationsCounter, DistanceToRoot(func.Generator, actualPoints.Last(), conditions));
 		}
 
 		private static void UpdateDomain(IShape<TFunc> func, IEnumerable<double> actualPoints)
@@ -73,7 +75,7 @@ namespace ComExp
 			if (!actualPoints.IsEnoughOfParams(1))
 				MethodsHelper.ThrowGreedlyException(actualPoints, 1);
 
-			return IsPrettyClose(func.Compute(actualPoints.Last())/MinimumOfOnceDiff, conditions);
+			return IsPrettyClose(func.Compute(actualPoints.Last()) / MinimumOfOnceDiff, conditions);
 		}
 
 		double DistanceBetweenPoints(TFunc func, double point1, double point2)

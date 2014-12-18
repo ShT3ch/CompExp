@@ -15,6 +15,11 @@ namespace ComExp.Shapes.Functions
 			return StoredFunk(x);
 		}
 
+		public string Name
+		{
+			get { return "SimpleFunctionKeeper" + StoredFunk.GetHashCode(); }
+		}
+
 		public Func<double, double> StoredFunk { get; private set; }
 	}
 }

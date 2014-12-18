@@ -16,6 +16,11 @@ namespace ComExp.Shapes.Functions
 			return MyFunc(x);
 		}
 
+		public string Name
+		{
+			get { return "Problem 4. 2cos(x)-e^x"; }
+		}
+
 		public IFunction FirstDerivative { get; private set; }
 
 		public IFunction SecondDerivative { get; private set; }

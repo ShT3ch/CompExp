@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using ILNumerics;
 using ILNumerics.Drawing;
@@ -22,6 +23,14 @@ namespace ComExp.Visualization
 
 			points.ForEach(graph.AddPoint);
 			return graph;
+		}
+
+		public void ExportImage(string path = "")
+		{
+			using (var fs = new FileStream(path, FileMode.Create))
+			{
+				new ILSVGDriver(fs, scene: this.Scene).Render();
+			}
 		}
 
 		protected void DoNessesaryMagicForStartUp()

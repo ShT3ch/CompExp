@@ -8,6 +8,18 @@ namespace ComExp.Methods
 {
 	public class BisecantMethod : INumericMethod<IFunction>
 	{
+		public string Name
+		{
+			get { return "BisecantMethod"; }
+		}
+
+		public string SrcImg
+		{
+			get { return Name + ".SVG"; }
+		}
+
+		public int StepSize { get; set; }
+
 		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IFunction analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(2))
@@ -20,13 +32,13 @@ namespace ComExp.Methods
 			if (Math.Abs(analyzedFunction.Compute(bisect)) < double.Epsilon)
 				return Enumerable.Empty<double>();
 
-			var firstSegment = analyzedFunction.Compute(lastPoints[0])*analyzedFunction.Compute(bisect);
+			var firstSegment = analyzedFunction.Compute(lastPoints[0]) * analyzedFunction.Compute(bisect);
 			if (firstSegment < 0)
-				return new[] {lastPoints[0], bisect};
+				return new[] { lastPoints[0], bisect };
 
-			var seconsSegment = analyzedFunction.Compute(bisect)*analyzedFunction.Compute(lastPoints[1]);
+			var seconsSegment = analyzedFunction.Compute(bisect) * analyzedFunction.Compute(lastPoints[1]);
 			if (seconsSegment < 0)
-				return new[] {bisect, lastPoints[1]};
+				return new[] { bisect, lastPoints[1] };
 
 			throw new Exception(string.Format("Метод деления пополам сломался. Выбран отрезок с концами одного знака(f({0}) = {1},f({2}) = {3})",
 				lastPoints[0],

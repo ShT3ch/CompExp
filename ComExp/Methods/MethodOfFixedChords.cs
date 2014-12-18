@@ -9,6 +9,18 @@ namespace ComExp.Methods
 {
 	public class MethodOfFixedChords : INumericMethod<IFunction>
 	{
+		public string Name
+		{
+			get { return "MethodOfFixedChords"; }
+		}
+
+		public string SrcImg
+		{
+			get { return Name + ".SVG"; }
+		}
+
+		public int StepSize { get; set; }
+
 		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IFunction analyzedFunction)
 		{
 			if (!previuosPoints.IsEnoughOfParams(2))
@@ -37,12 +49,12 @@ namespace ComExp.Methods
 
 			yield return new VerticalSegment(0,
 				analyzedFunction.Compute(lastPoints[1]),
-				lastPoints[1], string.Format("Step of {0}", iterationNumber));
+				lastPoints[1], string.Format("Chord step N{0}", iterationNumber));
 		}
 
 		protected Func<double, double, Func<double, double>, double> MethodStep
 		{
 			get { return (x0, xi, f) => xi - (f(xi) * (xi - x0)) / (f(xi) - f(x0)); }//https://ru.wikipedia.org/wiki/Метод_хорд
-		} 
+		}
 	}
 }

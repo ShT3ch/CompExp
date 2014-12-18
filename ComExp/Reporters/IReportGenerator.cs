@@ -6,8 +6,8 @@ namespace ComExp.Reporters
 {
 	public interface IReportGenerator
 	{
-		String GenerateReport();
-		void AddIntermidiateStep(IEnumerable<double> actualPoints, IEnumerable<IShape> pictureOfShape);
+		string GenerateReport(double Root, int N, double Error);
+		void AddIntermidiateStep(IEnumerable<double> actualPoints, IEnumerable<IShape> pictureOfShape, int iterationNumber);
 		void Init(IEnumerable<double> startPoints, IShape function, Conditions conditions);
 	}
 }

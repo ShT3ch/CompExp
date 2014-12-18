@@ -12,8 +12,17 @@ namespace ComExp.Visualization
 		public void AccomodateControl(ShapesPlot what, string where = "Main")
 		{
 			var form = GetForm(where);
-			form.Controls.Add(what);
+			Invoke(()=>form.Controls.Add(what));
 			what.Updated += () => Invoke(form.Refresh);
+			form.KeyDown += (sender, args) =>
+			{
+				if (args.Control && args.KeyCode == Keys.S)
+				{
+					var dialog = new SaveFileDialog();
+					dialog.ShowDialog();
+					what.ExportImage(dialog.FileName);
+				}
+			};
 		}
 
 		public void ShowForm(string name)
@@ -53,7 +62,14 @@ namespace ComExp.Visualization
 
 		private Form CreateForm(string name)
 		{
-			var RawForm = new Form { Text = name, Visible = true };
+			var RawForm = new Form { Text = name, Visible = true, WindowState = FormWindowState.Maximized };
+
+			RawForm.KeyPreview = true;
+			RawForm.KeyDown += (sender, args) =>
+			{
+				if (args.KeyCode == Keys.Escape)
+					Application.Exit();
+			};
 
 			Forms.AddOrUpdate(name, RawForm, (s, form) => RawForm);
 
@@ -63,6 +79,7 @@ namespace ComExp.Visualization
 		public void Initialize()
 		{
 			Main = CreateForm("Main");
+			Main.Visible = false;
 			Main.Invalidated += (sender, args) => InitializedEvent.Set();
 		}
 
