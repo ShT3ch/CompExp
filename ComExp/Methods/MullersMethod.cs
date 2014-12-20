@@ -27,7 +27,7 @@ namespace ComExp.Methods
 			get { return Name + ".SVG"; }
 		}
 
-		public int StepSize { get; private set; }
+		public int StepSize { get; set; }
 
 
 		public IEnumerable<double> ComputeNext(IEnumerable<double> previuosPoints, IDifferentiableTwice analyzedFunction)

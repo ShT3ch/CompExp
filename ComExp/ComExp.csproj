@@ -61,6 +61,7 @@
     <Compile Include="Reporters\SimpleReporter.cs" />
     <Compile Include="Shapes\Domains\SegmentDomain.cs" />
     <Compile Include="Shapes\Domains\SimpleDomainKeeper.cs" />
+    <Compile Include="Shapes\Functions\Problem1.cs" />
     <Compile Include="Shapes\Functions\Problem3.cs" />
     <Compile Include="Shapes\LineShape.cs" />
     <Compile Include="Shapes\Domains\IDomain.cs" />

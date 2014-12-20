@@ -38,7 +38,7 @@ namespace FixedChord4
 				new SecantMethod(){StepSize = 1},
 				new NewtonMethod(){StepSize = 1},
 				new ParabolaMethod(-1){StepSize = 3},
-				//new MullersMethod(conditions.InitialPoints.Min(), conditions.InitialPoints.Max(), func, -1)
+				new MullersMethod(conditions.InitialPoints.Min(), conditions.InitialPoints.Max(), func, -1){StepSize = 1}
 			};
 
 

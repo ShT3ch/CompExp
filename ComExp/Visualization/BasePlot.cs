@@ -27,7 +27,7 @@ namespace ComExp.Visualization
 
 		public void ExportImage(string path = "")
 		{
-			using (var fs = new FileStream(path, FileMode.Create))
+			using (var fs = new FileStream(path,  FileMode.Create))
 			{
 				new ILSVGDriver(fs, scene: this.Scene).Render();
 			}

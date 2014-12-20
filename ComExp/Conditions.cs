@@ -18,8 +18,24 @@ namespace ComExp
 		{
 			Epsilon = 0.5 * Math.Pow(10, -5);
 			MaxNumberOfIteration = 120;
-			InitialPoints = new List<double> { 1, 0, 3, };
+			InitialPoints = new List<double> { 1, 0, 4, };
 			RootPoint = 0.539785;
+		}
+
+		public double Epsilon { get; private set; }
+		public int MaxNumberOfIteration { get; private set; }
+		public IEnumerable<double> InitialPoints { get; private set; }
+		public double RootPoint { get; private set; }
+	}
+
+	public class Conditions1 : Conditions
+	{
+		public Conditions1()
+		{
+			Epsilon = 0.5 * Math.Pow(10, -5);
+			MaxNumberOfIteration = 120;
+			InitialPoints = new List<double> { 5,4.6, 6, };
+			RootPoint = 4.8495941;
 		}
 
 		public double Epsilon { get; private set; }
