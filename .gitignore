@@ -5,3 +5,7 @@
 *.v12.suo
 */obj/
 packages/
+OldCompExp/FixedChord4/bin*
+OldCompExp/ComExp/obj
+OldCompExp/ComExp/bin
+OldCompExp/ComExp/bin*
