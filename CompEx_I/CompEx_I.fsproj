@@ -37,26 +37,6 @@
     <DocumentationFile>bin\Release\CompEx_I.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Airlabs.Robo.Sandbox">
-      <HintPath>C:\Users\sht3ch\Documents\roboSpace\Scenarist\Robo\Cerebellum\bin\Debug\Airlabs.Robo.Sandbox.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="TableParser">
-      <HintPath>C:\Users\sht3ch\Documents\Visual Studio 2013\Projects\CompEx_I\packages\TableParser.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ComputationCore.fs" />
-    <None Include="App.config" />
-    <Compile Include="TaskFile1.fs" />
-  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -73,6 +53,35 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
+  <ItemGroup>
+    <Compile Include="ComputationCore.fs" />
+    <None Include="App.config" />
+    <Compile Include="TaskFile1.fs" />
+    <Compile Include="Task2.fs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Airlabs.Robo.Sandbox">
+      <HintPath>C:\Users\sht3ch\Documents\roboSpace\Scenarist\Robo\Cerebellum\bin\Debug\Airlabs.Robo.Sandbox.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Charting">
+      <HintPath>..\packages\FSharp.Charting.0.90.9\lib\net40\FSharp.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="TableParser">
+      <HintPath>C:\Users\sht3ch\Documents\Visual Studio 2013\Projects\CompEx_I\packages\TableParser.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
