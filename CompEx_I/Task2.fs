@@ -1,8 +1,11 @@
 ﻿module Task2
+
 open FSharp.Charting
 open System.Drawing
 open System.Windows.Forms
 open System.Windows.Forms.DataVisualization
+
+open Symbolic
 open ComputationCore
 open Definitions
 open TaskList
@@ -44,10 +47,12 @@ let chains problem fromFineness toFineness =
     ::
     []
 
+let solve2 problem fromN toN objective = 
+    (FSharp.Charting.Chart.Combine 
+        (
+            chains problem fromN toN
+            |> List.map (fun readyChain-> readyChain objective)
+            |> List.map (fun (name, chain)-> (FSharp.Charting.Chart.Line (chain,name)).WithLegend())
+        )).WithTitle (FormatExpression problem.func)
 
-(FSharp.Charting.Chart.Combine 
-    (
-        chains myProblem2 1 100 
-        |> List.map (fun readyChain-> readyChain commonObjective2)
-        |> List.map (fun (name, chain)-> (FSharp.Charting.Chart.Line (chain,name)).WithLegend())
-    )).WithTitle "1./(1.+x+x*x)"
+solve2 myProblem2 1 100 commonObjective2

@@ -1,4 +1,4 @@
-﻿module TaskFile1
+﻿module Task1
 
 open ComputationCore
 open TaskList

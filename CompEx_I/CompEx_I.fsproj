@@ -60,7 +60,7 @@
     <Compile Include="ComputationCore.fs" />
     <Compile Include="TaskList.fs" />
     <None Include="App.config" />
-    <Compile Include="TaskFile1.fs" />
+    <Compile Include="Task1.fs" />
     <Compile Include="Task2.fs" />
     <None Include="packages.config" />
     <Compile Include="Task3List.fs" />
