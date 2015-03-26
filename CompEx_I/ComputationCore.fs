@@ -1,5 +1,7 @@
 ﻿module ComputationCore
 
+open Symbolic
+open Definitions
 
 type Segment = 
     {
@@ -8,20 +10,13 @@ type Segment =
     Length: double;
     }
 
-type Objective = 
-    {
-    a:double;
-    b:double;
-    h:double
-    }
-
 [<AbstractClass>]
 type IntegrateMethod<'NodesSeq>(Func) = 
     abstract member BuildNodes: Segment-> 'NodesSeq
     abstract member DoCalc: 'NodesSeq -> double
     abstract member Order: int
     abstract member Name: string
-    member this.F: double -> double = Func
+    member this.F: Expression = Func
 
 
 type RectangleIntegrate(Func) = 
@@ -30,7 +25,7 @@ type RectangleIntegrate(Func) =
     override this.Order = 2
     override this.BuildNodes inSeg = inSeg
     override this.DoCalc seg = 
-            seg.Length*Func ((seg.Left+seg.Right)/2.)
+            seg.Length*(Compute Func ((seg.Left+seg.Right)/2.))
 
 type TrapezoidalIntegrate(Func) = 
     inherit IntegrateMethod<Segment>(Func)
@@ -38,7 +33,7 @@ type TrapezoidalIntegrate(Func) =
     override this.Order = 2
     override this.BuildNodes inSeg = inSeg
     override this.DoCalc seg = 
-        (seg.Length/2.)*(Func(seg.Left)+Func(seg.Right))
+        (seg.Length/2.)*((Compute Func (seg.Left))+ (Compute Func (seg.Right)))
 
 type SimpsonIntegrate(Func) = 
     inherit IntegrateMethod<Segment>(Func)
@@ -46,7 +41,7 @@ type SimpsonIntegrate(Func) =
     override this.Order = 4
     override this.BuildNodes inSeg = inSeg
     override this.DoCalc seg = 
-        (seg.Length/6.)*(Func(seg.Left)+4.*Func((seg.Left+seg.Right)/2.)+Func(seg.Right))
+        (seg.Length/6.)*((Compute Func (seg.Left))+4.*(Compute Func ((seg.Left+seg.Right)/2.))+(Compute Func (seg.Right)))
 
 let rec split a b h = 
     match b with

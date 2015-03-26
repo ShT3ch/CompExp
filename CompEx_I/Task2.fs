@@ -4,18 +4,8 @@ open System.Drawing
 open System.Windows.Forms
 open System.Windows.Forms.DataVisualization
 open ComputationCore
-
-type Problem2 = 
-    {
-        func:(double->double);
-        expectedResult:double;
-    }
-
-type Task2 = 
-    {
-        problem: Problem2
-        objective: Objective;
-    }
+open Definitions
+open TaskList
 
 let generateObjectives baseObjective = 
     Seq.initInfinite (fun number ->( {
@@ -55,26 +45,9 @@ let chains problem fromFineness toFineness =
     []
 
 
-let commonObjective = 
-    {
-        a=0.;b=1.;h=1.
-    }
-
-let myProblem =  
-    {
-        func = fun x -> 1./(1.+x+x*x);
-        expectedResult = System.Math.PI/(3.*sqrt(3.));
-    }
-    
-let task = 
-    {
-        problem = myProblem;
-        objective = commonObjective
-    }
-
 (FSharp.Charting.Chart.Combine 
     (
-        chains myProblem 1 100 
-        |> List.map (fun readyChain-> readyChain commonObjective)
+        chains myProblem2 1 100 
+        |> List.map (fun readyChain-> readyChain commonObjective2)
         |> List.map (fun (name, chain)-> (FSharp.Charting.Chart.Line (chain,name)).WithLegend())
     )).WithTitle "1./(1.+x+x*x)"

@@ -2,13 +2,9 @@
 
 open ComputationCore
 open TaskList
-open MathNet.Symbolics
-
-let objectiveCommon = {a = 0.; b = 1.; h = 0.01}
-
-//let funcs = [funcII; funcIII; funcIV; funcV]
-//let numbers = [0..20]|> List.map(fun x-> (double)x)
-
+open Symbolic
+open Definitions
+    
 let solve myNumber myFunction myObjective = 
     let myExRectangular = new RectangleIntegrate(myFunction)
     let myExTrapezoidal = new TrapezoidalIntegrate(myFunction)
@@ -22,15 +18,15 @@ let solve myNumber myFunction myObjective =
 
 let writeAnswer number func objective =
     let curriedFunc = func number
-    printf "Number of member: %i; function: %s\r\n" number (Infix.print curriedFunc)
-    printf "%s\r\n" (solve number (doLambda curriedFunc) objective |> String.concat "\r\n")
+    printf "Number of member: %i; function: %s\r\n" number (FormatExpression curriedFunc)
+    printf "%s\r\n" (solve number curriedFunc objective |> String.concat "\r\n")
 
 
 let myNumber =  16
-let myFunction = FuncIV 
+let myFunction = Poisoned.FuncV 
+//
+//let polyNumber = 13
+//let polyFunc = FuncIII
 
-let polyNumber = 13
-let polyFunc = FuncIII
-
-writeAnswer myNumber myFunction objectiveCommon
-writeAnswer polyNumber polyFunc objectiveCommon
+writeAnswer myNumber myFunction commonObjective1
+//writeAnswer polyNumber polyFunc objectiveCommon
