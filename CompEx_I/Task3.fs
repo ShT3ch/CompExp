@@ -37,7 +37,7 @@ let estimateStepOfSimpson exp accuracy taskObjective eps =
     printf "Estimated step: %10.7f\r\n" (estimatedH)
     {a = workingDomain.a; b = workingDomain.b; h = estimatedH}
 
-let estimatedStep = (estimateStepOfSimpson Poisoned.MyFunc3 1 objective3 0.0001);
+let estimatedStep = (estimateStepOfSimpson Poisoned.MyFunc3 0.5 objective3 0.0001);
 writeSolution Poisoned.MyFunc3 estimatedStep
 
 let domain = cutAreaOfIntegrating objective3 0.01
