@@ -5,9 +5,9 @@ open Definitions
 
 type Segment = 
     {
-    Left: double;
-    Right: double;
-    Length: double;
+    Left: float;
+    Right: float;
+    Length: float;
     }
 
 [<AbstractClass>]
@@ -41,12 +41,13 @@ type SimpsonIntegrate(Func) =
     override this.Order = 4
     override this.BuildNodes inSeg = inSeg
     override this.DoCalc seg = 
-        (seg.Length/6.)*((Compute Func (seg.Left))+4.*(Compute Func ((seg.Left+seg.Right)/2.))+(Compute Func (seg.Right)))
+        (seg.Length/6.)*((Compute Func (seg.Left)) + 4. * (Compute Func ((seg.Left + seg.Right) / 2.)) + (Compute Func (seg.Right)))
 
-let rec split a b h = 
-    match b with
-    | midEnd when midEnd > a+h -> ({Left = (a); Right = a+h; Length = h})::(split  (a+h) b h)
-    | realEnd when realEnd <= a+h -> ({Left = a; Right = b; Length = b-a})::[]
+let split a b h = 
+    Seq.init ((int)((b-a)/h)) (fun n-> {Left = a+h*(double)n; Right = a+h*(double)n+h; Length = h})
+//    match b with
+//    | midEnd when midEnd > a+h -> ({Left = (a); Right = a+h; Length = h})::(split  (a+h) b h)
+//    | realEnd when realEnd <= a+h -> ({Left = a; Right = b; Length = b-a})::[]
 
 let doCalc<'a> (integrateMethod:IntegrateMethod<'a>, objective) = 
     split objective.a objective.b objective.h
@@ -57,7 +58,7 @@ let doCalc<'a> (integrateMethod:IntegrateMethod<'a>, objective) =
 type TableLine(integrateMethod:IntegrateMethod<Segment>, objective) = 
     member this.N = doCalc(integrateMethod, objective)
     member this.DoubledN = doCalc(integrateMethod,{a = objective.a; b = objective.b; h = objective.h/2.})
-    member this.DoubledRungeEstimation = (this.DoubledN - this.N)/(2.**((float)integrateMethod.Order))
+    member this.DoubledRungeEstimation = (this.DoubledN - this.N)/(2. ** ((float) integrateMethod.Order))
     member this.Method = integrateMethod
 
 let intagrateMethods func = 
@@ -80,9 +81,9 @@ let title = (sprintf
                 (columnWidth*2) "Runge R2n")
 let delimeter = 
     String.concat "" (Seq.map (fun headChar -> 
-        match headChar with
-        |'|'->"┼"
-        |_ -> "-") title)
+                          match headChar with
+                          | '|' -> "┼"
+                          | _ -> "-") title)
 
 let buildStringLineFrom (line:TableLine) = (sprintf 
     "| %*s | %*.*f | %*.*f | %*.*e |" 
@@ -92,4 +93,4 @@ let buildStringLineFrom (line:TableLine) = (sprintf
                     (columnWidth*2) doubleOutputAccuracy line.DoubledRungeEstimation)
 
 let buildStringLines tableLines = 
-    title :: delimeter :: (tableLines |> List.map(fun (x:TableLine) -> buildStringLineFrom(x)))
+    title :: delimeter :: (tableLines |> List.map (fun (x : TableLine) -> buildStringLineFrom (x)))

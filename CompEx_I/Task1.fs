@@ -5,7 +5,7 @@ open TaskList
 open Symbolic
 open Definitions
     
-let solve myNumber myFunction myObjective = 
+let solve myFunction myObjective = 
     let myExRectangular = new RectangleIntegrate(myFunction)
     let myExTrapezoidal = new TrapezoidalIntegrate(myFunction)
     let myExSimpson = new SimpsonIntegrate(myFunction)
@@ -16,10 +16,13 @@ let solve myNumber myFunction myObjective =
 
     outputTable
 
+let writeSolution curriedFunc objective = 
+    printf "%s\r\n" (solve curriedFunc objective |> String.concat "\r\n")
+
 let writeAnswer number func objective =
     let curriedFunc = func number
     printf "Number of member: %i; function: %s\r\n" number (FormatExpression curriedFunc)
-    printf "%s\r\n" (solve number curriedFunc objective |> String.concat "\r\n")
+    writeSolution curriedFunc objective
 
 
 let myNumber =  16

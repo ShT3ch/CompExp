@@ -21,7 +21,7 @@ let getChain objective problem fromFineness toFineness (integrateMethod:Integrat
     (integrateMethod.Name, generateObjectives objective
                            |> Seq.skip fromFineness
                            |> Seq.take toFineness
-                           |> Seq.map (fun (objectiveStep, stepNumber)-> (doCalc(integrateMethod,objectiveStep) - problem.expectedResult,stepNumber))
+                           |> Seq.map (fun (objectiveStep, stepNumber)-> (System.Math.Abs(doCalc(integrateMethod,objectiveStep) - problem.expectedResult),stepNumber))
                            |> Seq.map (fun (x,y)->(y,x))
     )
 
@@ -55,4 +55,4 @@ let solve2 problem fromN toN objective =
             |> List.map (fun (name, chain)-> (FSharp.Charting.Chart.Line (chain,name)).WithLegend())
         )).WithTitle (FormatExpression problem.func)
 
-solve2 myProblem2 1 100 commonObjective2
+solve2 myProblem2  2 30 commonObjective2
