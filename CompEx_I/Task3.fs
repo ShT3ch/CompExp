@@ -7,11 +7,9 @@ open ComputationCore
 open Task1
 open TaskList
 
-let myEstimatingHigherBoundOfIntegrating eps = 1./eps
-
-let cutAreaOfIntegrating oldObjective eps = 
-    { a = 1.
-      b = myEstimatingHigherBoundOfIntegrating eps
+let cutAreaOfIntegrating boundEstimator oldObjective eps = 
+    { a = oldObjective.a
+      b = boundEstimator eps
       h = 1. }
 
 let rec nthOrderDerivative exp n = 
@@ -26,8 +24,8 @@ let maxNthOrderDerivative exp n objective accuracy =
     |> Seq.map(Compute derivative)
     |> Seq.max
 
-let estimateStepOfSimpson exp accuracy taskObjective eps = 
-    let workingDomain = cutAreaOfIntegrating taskObjective eps
+let estimateStepOfSimpson exp boundEstimator accuracy taskObjective eps = 
+    let workingDomain = cutAreaOfIntegrating boundEstimator taskObjective eps
     printf "domain: a = %3.5f; b = %3.5f; h = %3.5f\r\n" workingDomain.a workingDomain.b workingDomain.h
     let m4 = maxNthOrderDerivative exp 4 workingDomain accuracy
     printf "Max 4 derivative: %10.7f\r\n" (m4)
@@ -37,12 +35,10 @@ let estimateStepOfSimpson exp accuracy taskObjective eps =
     printf "Estimated step: %10.7f\r\n" (estimatedH)
     {a = workingDomain.a; b = workingDomain.b; h = estimatedH}
 
-let estimatedStep = (estimateStepOfSimpson Poisoned.MyFunc3 0.5 objective3 0.0001);
-writeSolution Poisoned.MyFunc3 estimatedStep
+let eps = 0.005
+let derivativeAccuracy = 0.001
+let boundEstimator = IIIEstimatingHigherBoundOfIntegrating
+let func =  Poisoned.IIIFunc3
 
-let domain = cutAreaOfIntegrating objective3 0.01
-let derivative = nthOrderDerivative Poisoned.MyFunc3 4
-split domain.a domain.b 0.1
-|> Seq.map (fun segment-> segment.Right)
-|> Seq.map (Compute  derivative)
-|> Seq.max
+let estimatedStep = (estimateStepOfSimpson func boundEstimator derivativeAccuracy commonObjective3 eps);
+writeSolution func estimatedStep

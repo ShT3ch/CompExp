@@ -20,5 +20,5 @@ module Poisoned =
     let (/) e1 e2 = Div(e1,e2)
     let (^) e1 e2 = Pow(e1,e2)
     let ln e1 = Log(e1)
-    let sin e1 = Log(e1)
+    let sin e1 = Sin(e1)
     let cos e1 = Cos(e1)

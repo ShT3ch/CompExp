@@ -28,8 +28,8 @@ let writeAnswer number func objective =
 let myNumber =  16
 let myFunction = Poisoned.FuncV 
 //
-//let polyNumber = 13
-//let polyFunc = FuncIII
+let polyNumber = 13
+let polyFunc = Poisoned.FuncIV
 
 writeAnswer myNumber myFunction commonObjective1
-//writeAnswer polyNumber polyFunc objectiveCommon
+writeAnswer polyNumber polyFunc commonObjective1
