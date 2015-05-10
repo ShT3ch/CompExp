@@ -2,8 +2,10 @@
 
 open Utilities
 open Objectives
+open TaylorStaff  
+open SymbolicDefinitions
 
-open Symbolic
+open MathNet.Symbolics
 
 type MultyStepMethod = 
     {
@@ -60,8 +62,6 @@ let cauchyBody step taskObjective (y_i :: y_tail, x_i :: x_evaluatedSeq) x_i1 =
     let y_i1 = cauchyMethodStep y_i x_i step taskObjective.y'
     (y_i1 :: y_i :: y_tail, x_i1 :: x_i :: x_evaluatedSeq)
 
-let taylorStep nthexp x_i y_i = Compute (addConst y_i nthexp) x_i
-
 let runge_kutta4Step y_i x_i h (y' : double -> double -> double) = 
     let k1 = h * (y' x_i y_i)
     let k2 = h * (y' (x_i + h / 2.0) (y_i + k1 / 2.0))
@@ -73,6 +73,25 @@ let runge_kutta4Body step taskObjective (y_i :: y_tail, x_i :: x_evaluatedSeq) x
     let y_i1 = runge_kutta4Step y_i x_i step taskObjective.y'
     (y_i1 :: y_i :: y_tail, x_i1 :: x_i :: x_evaluatedSeq)
 
+let tailorNthBody nth step taskObjective (y_i :: y_tail, x_i :: x_evaluatedSeq) x_i1 = 
+    let assembledTaylor = Poisoned.taylorAssembler taskObjective nth
+    printfn "%s" (Infix.print assembledTaylor)
+    let symbolics = Map.ofList (
+        List.concat [
+            rootValues_A; 
+            [
+                "h", step |> Real; 
+                "y(x_i)", y_i |> Real; 
+                "x_i", x_i |> Real;
+            ]
+        ])  
+    (symbolics
+         |> Map.toSeq
+         |> Seq.map (fun (symbol, value) -> sprintf "%s: %f" symbol  value.RealValue)
+         |> Seq.iter (fun sym -> (printf "%s; " sym) |> ignore))
+    let y_i1 = Evaluate.evaluate symbolics assembledTaylor
+    (y_i1.RealValue :: y_i :: y_tail, x_i1 :: x_i :: x_evaluatedSeq)
+
 let commonWay x_Seq body taskObjective = 
     x_Seq
     |> Seq.skip 1
@@ -81,20 +100,13 @@ let commonWay x_Seq body taskObjective =
 let multyStepWay x_Seq method accelerationMethod step taskObjective = 
     let accelerationData = 
         commonWay (x_Seq |> Seq.take method.order) (accelerationMethod step) taskObjective
-    printfn "acceleration %O" (accelerationData)
     x_Seq
     |> Seq.skip method.order
     |> Seq.fold (fun (y_Cur, x_Cur) x_i1 ->
             let y_i1 = 
                 method.coeffs
                 |> Seq.zip3 y_Cur x_Cur
-                |> Seq.map (fun (y, x, coef) -> 
-                    printfn "coeff: %f; x: %f; y: %f" coef x y
-                    (y, x, coef))
                 |> Seq.sumBy (fun (y, x, coef) -> coef * (taskObjective.y' x y))
-                |> fun currentSum -> 
-                    printfn "sum: %f" currentSum
-                    currentSum
                 |> (*) (step/method.divisor)
                 |> (+) <| Seq.head y_Cur
             (y_i1 :: y_Cur, x_i1 :: x_Cur)

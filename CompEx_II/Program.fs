@@ -33,6 +33,10 @@ let runge_kutta4Line taskObjective step x_Seq =
     commonWay x_Seq (runge_kutta4Body step) taskObjective
     |> drawLineEuler "runge-kutta 4"
 
+let taylor2Line taskObjective step x_Seq = 
+    commonWay x_Seq (tailorNthBody 2 step) taskObjective
+    |> drawLineEuler "taylor 2"
+
 let twoStepAdamsLine taskObjective step x_Seq = 
     multyStepWay x_Seq twoStepAdams runge_kutta4Body step taskObjective
     |> drawLineEuler "two step Adams accelerated by runge-kutta 4"
@@ -54,6 +58,7 @@ let fourStepAdamsLine taskObjective step x_Seq =
     twoStepAdamsLine Objective_A step x_Seq;
     threeStepAdamsLine Objective_A step x_Seq;
     fourStepAdamsLine Objective_A step x_Seq;
+    taylor2Line Objective_A step x_Seq;
     Chart.Line(x_Seq |> Seq.map(fun x -> (x,Objective_A.y x)), "origin");
 ]
 |> List.map (Chart.WithLegend true)
