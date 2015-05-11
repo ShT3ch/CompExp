@@ -11,7 +11,7 @@ open System.Windows.Forms
 open System.Windows.Forms.DataVisualization
 open System.Drawing
 
-let (step, x_Seq) = domainSplitter 0.0 1.0 10
+let (step, x_Seq) = domainSplitter 0.0 1.0 5
 
 let eulerLine taskObjective step x_Seq  = 
     commonWay x_Seq (eulerForwardBody step) taskObjective
@@ -36,6 +36,14 @@ let runge_kutta4Line taskObjective step x_Seq =
 let taylor2Line taskObjective step x_Seq = 
     commonWay x_Seq (tailorNthBody 2 step) taskObjective
     |> drawLineEuler "taylor 2"
+    
+let taylor3Line taskObjective step x_Seq = 
+    commonWay x_Seq (tailorNthBody 3 step) taskObjective
+    |> drawLineEuler "taylor 3"
+    
+let taylor4Line taskObjective step x_Seq = 
+    commonWay x_Seq (tailorNthBody 4 step) taskObjective
+    |> drawLineEuler "taylor 4"
 
 let twoStepAdamsLine taskObjective step x_Seq = 
     multyStepWay x_Seq twoStepAdams runge_kutta4Body step taskObjective
@@ -50,15 +58,17 @@ let fourStepAdamsLine taskObjective step x_Seq =
     |> drawLineEuler "four step Adams accelerated by runge-kutta 4"
 
 [
-    eulerLine Objective_A step x_Seq; 
-    eulerBackwardLine Objective_A step x_Seq;
-    cauchyLine Objective_A step x_Seq;
-    implicitEulerLine Objective_A step x_Seq;
-    runge_kutta4Line Objective_A step x_Seq;
-    twoStepAdamsLine Objective_A step x_Seq;
-    threeStepAdamsLine Objective_A step x_Seq;
+//    eulerLine Objective_A step x_Seq; 
+//    eulerBackwardLine Objective_A step x_Seq;
+//    cauchyLine Objective_A step x_Seq;
+//    implicitEulerLine Objective_A step x_Seq;
+//    runge_kutta4Line Objective_A step x_Seq;
+//    twoStepAdamsLine Objective_A step x_Seq;
+//    threeStepAdamsLine Objective_A step x_Seq;
     fourStepAdamsLine Objective_A step x_Seq;
     taylor2Line Objective_A step x_Seq;
+    taylor3Line Objective_A step x_Seq;
+    taylor4Line Objective_A step x_Seq;
     Chart.Line(x_Seq |> Seq.map(fun x -> (x,Objective_A.y x)), "origin");
 ]
 |> List.map (Chart.WithLegend true)
