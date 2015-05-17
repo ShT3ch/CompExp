@@ -1,14 +1,16 @@
 ﻿module Task2
 
+open Symbolic
+open ComputationCore
+open Definitions
+open TaskList
+
+
 open FSharp.Charting
 open System.Drawing
 open System.Windows.Forms
 open System.Windows.Forms.DataVisualization
 
-open Symbolic
-open ComputationCore
-open Definitions
-open TaskList
 
 let generateObjectives baseObjective = 
     Seq.initInfinite (fun number ->( {
@@ -21,7 +23,7 @@ let getChain objective problem fromFineness toFineness (integrateMethod:Integrat
     (integrateMethod.Name, generateObjectives objective
                            |> Seq.skip fromFineness
                            |> Seq.take toFineness
-                           |> Seq.map (fun (objectiveStep, stepNumber)-> ((doCalc(integrateMethod,objectiveStep) - problem.expectedResult),stepNumber))
+                           |> Seq.map (fun (objectiveStep, stepNumber)-> ((doCalc(integrateMethod,objectiveStep)),stepNumber))
                            |> Seq.map (fun (x,y)->(y,x))
     )
 
@@ -55,4 +57,4 @@ let solve2 problem fromN toN objective =
             |> List.map (fun (name, chain)-> (FSharp.Charting.Chart.Line (chain,name)).WithLegend())
         )).WithTitle (FormatExpression problem.func)
 
-solve2 IIIProblem2 2 30 commonObjective2
+solve2 IProblem2 2 30 commonObjective2

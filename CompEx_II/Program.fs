@@ -11,7 +11,7 @@ open System.Windows.Forms
 open System.Windows.Forms.DataVisualization
 open System.Drawing
 
-let (step, x_Seq) = domainSplitter 0.0 1.0 5
+let (step, x_Seq) = domainSplitter 0.0 1.0 10
 
 let eulerLine taskObjective step x_Seq  = 
     commonWay x_Seq (eulerForwardBody step) taskObjective
@@ -62,10 +62,10 @@ let fourStepAdamsLine taskObjective step x_Seq =
 //    eulerBackwardLine Objective_A step x_Seq;
 //    cauchyLine Objective_A step x_Seq;
 //    implicitEulerLine Objective_A step x_Seq;
-//    runge_kutta4Line Objective_A step x_Seq;
+    runge_kutta4Line Objective_A step x_Seq;
 //    twoStepAdamsLine Objective_A step x_Seq;
 //    threeStepAdamsLine Objective_A step x_Seq;
-    fourStepAdamsLine Objective_A step x_Seq;
+//    fourStepAdamsLine Objective_A step x_Seq;
     taylor2Line Objective_A step x_Seq;
     taylor3Line Objective_A step x_Seq;
     taylor4Line Objective_A step x_Seq;

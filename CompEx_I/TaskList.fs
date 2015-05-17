@@ -17,7 +17,7 @@ module Poisoned =
     let FuncIV B = (one + Int(B) * sin (X))^ half
     let FuncV B = (one + X + X * X * Int(B)) ^half
 
-    
+    let IFunc2 =  (one/(one+(X^two)))
     let IIIFunc2 =  (one/(one-X+(X^two)))
     let IVFunc2 = C(D 1.)/(C(D 1.) + X + X * X);
     
@@ -50,6 +50,10 @@ let commonObjective3 =
 let IVProblem2 =  
         { func = Poisoned.IVFunc2
           expectedResult = System.Math.PI / (3. * sqrt (3.)) }
+
+let IProblem2 =  
+        { func = Poisoned.IFunc2
+          expectedResult = System.Math.PI / 4.0 }
 
         
 let IIIProblem2 =  
