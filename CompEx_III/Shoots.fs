@@ -41,10 +41,11 @@ let rec computeCauchy (a :: xs) b n y0 y'0 f1 f2 cauchyMethod =
         let (xs, y1s, y2s) = cauchyMethod h (a :: xs, y0, y'0) f1 f2
         computeCauchy xs b (n - 1) y1s y2s f1 f2 cauchyMethod
 
-let rec shoot a b n ε ((μPrevious, y1Previous), μCurrent) cauchyMethod f1 f2 (y0:float) y1 accumulator = 
+let rec shoot a b n ε ((μPrevious, y1Previous), μCurrent) cauchyMethod f1 f2 (y0:float) y1FuncByZn accumulator = 
     let (xLast :: xs, y1Last :: y1Tail, y2Last :: y2Tail) = 
         computeCauchy (a::[]) b n (y0::[]) (μCurrent::[]) f1 f2 cauchyMethod
 
+    let y1 = y1FuncByZn y2Last
     let answer = (xLast :: xs, y1Last :: y1Tail, y2Last :: y2Tail)::accumulator
     printfn "shoot: μCurrent: %f; x: %f; y1: %f; y2 origin: %f; diff: %f; ε: %f;" μCurrent xLast y1Last y1 (y1Last - y1) ε
     if (abs (y1Last - y1) < ε) 
@@ -52,5 +53,5 @@ let rec shoot a b n ε ((μPrevious, y1Previous), μCurrent) cauchyMethod f1 f2 
             answer
         else 
             let μNext = μCurrent - (y1Last - y1) * (μCurrent - μPrevious) / (y1Last - y1Previous)
-            shoot a b n ε ((μCurrent, y1Last), μNext) cauchyMethod f1 f2 y0 y1 answer
+            shoot a b n ε ((μCurrent, y1Last), μNext) cauchyMethod f1 f2 y0 y1FuncByZn answer
 

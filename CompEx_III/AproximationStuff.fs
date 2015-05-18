@@ -1,18 +1,6 @@
 ﻿module AproximationStuff
 
-type LeftBoundaryCondition  = 
-    {
-        C1:float
-        B1:float
-        a:float
-    }
-
-type RightBoundaryCondition  = 
-    {
-        An:float
-        Cn:float
-        b:float
-    }
+open Definitions
 
 let pimenovApproximation pi qi rightBoundary leftBoundary h n = 
     let A i = 
@@ -27,11 +15,11 @@ let pimenovApproximation pi qi rightBoundary leftBoundary h n =
         match i with
         | _ when (i=0) -> leftBoundary.C1
         | _ when (i=n) -> rightBoundary.Cn
-        | k -> -(2.0+(pi k)*h**2.0)
+        | k -> -(2.0+(pi k)*(h**2.0))
     let F i =
         match i with
-        | _ when (i=0) -> leftBoundary.a
-        | _ when (i=n) -> rightBoundary.b
-        | k -> (qi k)*h**2.0
+        | _ when (i=0) -> leftBoundary.F1
+        | _ when (i=n) -> rightBoundary.Fn
+        | k -> (qi k)*(h**2.0)
     (A,B,C,F)
         
