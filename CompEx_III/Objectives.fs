@@ -43,8 +43,17 @@ let rightBoundaryE N h =
             Cn = (1.0+h);
         }
 
+let rightBoundaryG N h= 
+        {
+            b = 1.0
+            Fn = (e - ((1.0) / e) + (αN N))*h;
+            An = -1.0;
+            Cn = (1.0);
+        }
+
 
 let originAE N x = -2.0+ e**(-x) + e**x+ (αN N)*(-1.0+x)*x
+let originAG N x = (αN N)*x**2.0 - (αN N)*x + e**(-x) + e**x - 2.0
 
 
 let originAB N x = 
